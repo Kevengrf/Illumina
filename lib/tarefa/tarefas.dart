@@ -3,7 +3,6 @@ import 'package:flutter_application_illumina/models/Tarefa.dart';
 import 'package:flutter_application_illumina/screens/tarefa/formTarefa.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 
 class Tarefas extends StatefulWidget {
@@ -16,7 +15,6 @@ class Tarefas extends StatefulWidget {
 class _TarefasState extends State<Tarefas> {
   final now = DateTime.now();
   late DateTime _selectedDate;
-
   final List<Tarefa> _tarefas = [];
 
   @override
@@ -29,7 +27,7 @@ class _TarefasState extends State<Tarefas> {
 
   void _adicionarTarefa(Tarefa tarefa) {
     setState(() {
-      _tarefas.add(tarefa); 
+      _tarefas.add(tarefa);
     });
   }
 
@@ -43,23 +41,45 @@ class _TarefasState extends State<Tarefas> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        title: const Text('Tarefas'),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        title: const Text(
+          'Tarefas',
+          style: TextStyle(color: Colors.white),
+        ),
+        elevation: 0,
       ),
       body: ListView(
         children: [
           _addTarefa(context),
           _dateBar(),
           _tarefasFiltradas().isEmpty
-              ? const Center(child: Text("Nenhuma tarefa para hoje."))
+              ? const Center(
+                  child: Text(
+                    "Nenhuma tarefa para hoje.",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )
               : Column(
                   children: _tarefasFiltradas().map((tarefa) {
                     return ListTile(
-                      title: Text(tarefa.titulo),
-                      subtitle: Text(tarefa.nota),
+                      title: Text(
+                        tarefa.titulo,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      subtitle: Text(
+                        tarefa.nota,
+                        style: const TextStyle(color: Colors.grey),
+                      ),
+                      trailing: const Icon(
+                        Icons.check_circle_outline,
+                        color: Colors.greenAccent,
+                      ),
                     );
                   }).toList(),
                 ),
@@ -68,10 +88,11 @@ class _TarefasState extends State<Tarefas> {
     );
   }
 
-  _addTarefa(BuildContext context) {
+  Widget _addTarefa(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Card(
+        color: Theme.of(context).cardColor,
         elevation: 0,
         child: ListTile(
           title: const Text(
@@ -79,6 +100,7 @@ class _TarefasState extends State<Tarefas> {
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
           ),
           subtitle: Text(
@@ -86,6 +108,7 @@ class _TarefasState extends State<Tarefas> {
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
+              color: Colors.white70,
             ),
           ),
           trailing: ElevatedButton.icon(
@@ -109,7 +132,7 @@ class _TarefasState extends State<Tarefas> {
     );
   }
 
-  _dateBar() {
+  Widget _dateBar() {
     return Container(
       margin: const EdgeInsets.only(top: 20, left: 10),
       child: DatePicker(
@@ -117,28 +140,27 @@ class _TarefasState extends State<Tarefas> {
         height: 100,
         width: 70,
         initialSelectedDate: _selectedDate,
-        selectionColor: Colors.blue,
+        selectionColor: const Color(0xFF919CAE),
         selectedTextColor: Colors.white,
         onDateChange: (date) {
           setState(() {
             _selectedDate = date;
           });
         },
-        monthTextStyle: GoogleFonts.lato(
-          textStyle: const TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.w600,
-            color: Colors.grey,
-          ),
+        monthTextStyle: const TextStyle(
+          fontSize: 10,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
         ),
-        dateTextStyle: GoogleFonts.lato(
-          textStyle: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: Colors.grey,
-          ),
+        dateTextStyle: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
         ),
-        dayTextStyle: const TextStyle(fontSize: 0),
+        dayTextStyle: const TextStyle(
+          fontSize: 10,
+          color: Colors.white,
+        ),
         locale: 'pt',
       ),
     );

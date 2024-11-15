@@ -24,9 +24,9 @@ class _HomePageState extends State<HomePage> {
         children: screens,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.blue,
-        selectedItemColor: Colors.black54,
-        unselectedItemColor: Colors.white70,
+        backgroundColor: Color.fromRGBO(65, 72, 83, 1),
+        selectedItemColor: Color.fromRGBO(255, 234, 0, 1),
+        unselectedItemColor: Color.fromRGBO(131, 135, 141, 1),
         type: BottomNavigationBarType.fixed,
         iconSize: 28,
         currentIndex: currentIndex,
