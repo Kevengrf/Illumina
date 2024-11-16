@@ -1,7 +1,9 @@
 class Tarefa {
-  final String titulo;
-  final String nota;
-  final DateTime data;
+  //Long idUsuario
+  String titulo;
+  String nota;
+  DateTime data;
+  //bool concluido;
 
   Tarefa(
     this.titulo,

@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 import 'homepage.dart';
 
-void main() {
+Future<void> main() async {
+  const keyApplicationId = 'dqZBCoWIex7uTx8M0CRlOnzKKADF0qclYmzZxQgM';
+  const keyClientKey = '1tskL2gxTlMponvEMYh95eYFP2F2JjJTiT23cjdk';
+  const keyParseServerUrl = 'https://parseapi.back4app.com';
+
+  await Parse().initialize(keyApplicationId, keyParseServerUrl,
+      clientKey: keyClientKey, debug: true);
   runApp(const MyApp());
 }
 
