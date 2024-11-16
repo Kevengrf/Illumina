@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_illumina/models/Tarefa.dart';
+import 'package:flutter_application_illumina/service/TarefaService.dart';
 import 'package:intl/intl.dart';
 
 class FormTarefa extends StatefulWidget {
@@ -15,11 +16,14 @@ class _FormTarefaState extends State<FormTarefa> {
   final TextEditingController _controladorData = TextEditingController();
 
   DateTime selecionarData = DateTime.now();
+  
+  late TarefaService tarefaService;
 
   @override
   void initState() {
     super.initState();
     Intl.defaultLocale = 'pt_BR';
+    tarefaService = TarefaService(); 
   }
 
   @override
@@ -56,6 +60,7 @@ class _FormTarefaState extends State<FormTarefa> {
               ),
             ),
             const SizedBox(height: 16),
+            
             TextField(
               controller: _controladorNota,
               style: const TextStyle(
@@ -67,9 +72,7 @@ class _FormTarefaState extends State<FormTarefa> {
                 border: OutlineInputBorder(),
               ),
             ),
-            const SizedBox(
-              height: 16,
-            ),
+            const SizedBox(height: 16),
             GestureDetector(
               onTap: () async {
                 DateTime? pickedDate = await showDatePicker(
@@ -118,8 +121,9 @@ class _FormTarefaState extends State<FormTarefa> {
                     final DateTime data = selecionarData;
 
                     Tarefa novaTarefa = Tarefa(titulo, nota, data);
+                    tarefaService.adicionarTarefa(novaTarefa);
+                    Navigator.pop(context);
 
-                    Navigator.pop(context, novaTarefa);
                   },
                   child: const Text(
                     'Adicionar Tarefa',
