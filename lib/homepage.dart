@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
             label: 'Metodos',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(Icons.assignment_outlined),
             label: 'Tarefas',
              // Adicionando o novo ícone para Pomodoro )
           ), 

@@ -16,7 +16,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor: Color.fromRGBO(41, 50, 62, 1)
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color.fromRGBO(41, 50, 62, 1),
+          ),
+        scaffoldBackgroundColor: const Color.fromRGBO(41, 50, 62, 1)
       ),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,

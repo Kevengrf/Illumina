@@ -26,7 +26,7 @@ class _TarefasState extends State<Tarefas> {
     _selectedDate = now;
   }
 
-  void _adicionarTarefa(Tarefa tarefa) {
+  void _addTarefa(Tarefa tarefa) {
     setState(() {
       _tarefas.add(tarefa);
     });
@@ -45,20 +45,34 @@ class _TarefasState extends State<Tarefas> {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tarefas'),
-      ),
       body: ListView(
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         children: [
-          _addTarefa(context),
-          _dateBar(width),
+          _cabecalho(context),
+          _dateBar(),
+          const SizedBox(
+            height: 50
+            ),
           _tarefasFiltradas().isEmpty
-              ? const Center(child: Text("Nenhuma tarefa para hoje."))
+              ? const Center(child: Text("Nenhuma tarefa para hoje.", 
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16
+              ),))
               : Column(
                   children: _tarefasFiltradas().map((tarefa) {
                     return ListTile(
-                      title: Text(tarefa.titulo),
-                      subtitle: Text(tarefa.nota),
+                      title: Text(tarefa.titulo, 
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16 
+                        ),),
+                      subtitle: Text(tarefa.nota,
+                      style: const TextStyle(
+                        color: Color.fromRGBO(145, 156, 174, 1),
+                        fontSize: 14
+                      ),
+                      ),
                     );
                   }).toList(),
                 ),
@@ -67,7 +81,7 @@ class _TarefasState extends State<Tarefas> {
     );
   }
 
-  Widget _addTarefa(BuildContext context) {
+  _cabecalho(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Card(
@@ -106,7 +120,7 @@ class _TarefasState extends State<Tarefas> {
               );
 
               if (tarefa != null) {
-                _adicionarTarefa(tarefa);
+                _addTarefa(tarefa);
               }
             },
           ),
@@ -115,7 +129,7 @@ class _TarefasState extends State<Tarefas> {
     );
   }
 
-  Widget _dateBar(double width) {
+  _dateBar() {
     return Container(
       margin: const EdgeInsets.only(top: 20, left: 10),
       child: DatePicker(
@@ -130,13 +144,13 @@ class _TarefasState extends State<Tarefas> {
             _selectedDate = date;
           });
         },
-        monthTextStyle: TextStyle(
-          fontSize: width * 0.04,
+        monthTextStyle: const TextStyle(
+          fontSize: 24,
           fontWeight: FontWeight.w600,
           color: Colors.grey,
         ),
-        dateTextStyle: TextStyle(
-          fontSize: width * 0.04,
+        dateTextStyle: const TextStyle(
+          fontSize: 18,
           fontWeight: FontWeight.w600,
           color: Colors.grey,
         ),

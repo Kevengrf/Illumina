@@ -26,7 +26,19 @@ class _FormTarefaState extends State<FormTarefa> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Adicionar Tarefa'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new),
+          color: Colors.white,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: const Text(
+          'Adicionar Tarefa',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -34,11 +46,29 @@ class _FormTarefaState extends State<FormTarefa> {
           children: [
             TextField(
               controller: _controladorTitulo,
-              decoration: const InputDecoration(labelText: 'Título'),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
+              decoration: const InputDecoration(
+                labelText: 'Título',
+                border: OutlineInputBorder(),
+              ),
             ),
+            const SizedBox(height: 16),
             TextField(
               controller: _controladorNota,
-              decoration: const InputDecoration(labelText: 'Nota'),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
+              decoration: const InputDecoration(
+                labelText: 'Nota',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(
+              height: 16,
             ),
             GestureDetector(
               onTap: () async {
@@ -52,28 +82,51 @@ class _FormTarefaState extends State<FormTarefa> {
                 if (pickedDate != null && pickedDate != selecionarData) {
                   setState(() {
                     selecionarData = pickedDate;
-                    _controladorData.text = DateFormat('dd/MM/yyyy').format(selecionarData);
+                    _controladorData.text =
+                        DateFormat('dd/MM/yyyy').format(selecionarData);
                   });
                 }
               },
               child: AbsorbPointer(
                 child: TextField(
                   controller: _controladorData,
-                  decoration: const InputDecoration(labelText: 'Data'),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                  decoration: const InputDecoration(
+                    labelText: 'Data',
+                    border: OutlineInputBorder(),
+                    suffixIcon: Icon(Icons.calendar_today),
+                  ),
                 ),
               ),
             ),
-            TextButton(
-              child: const Text('Cadastrar'),
-              onPressed: () {
-                final String titulo = _controladorTitulo.text;
-                final String nota = _controladorNota.text;
-                final DateTime data = selecionarData;
+            const SizedBox(height: 24),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromRGBO(255, 234, 0, 1),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 12),
+                  ),
+                  onPressed: () {
+                    final String titulo = _controladorTitulo.text;
+                    final String nota = _controladorNota.text;
+                    final DateTime data = selecionarData;
 
-                Tarefa novaTarefa = Tarefa(titulo, nota, data);
+                    Tarefa novaTarefa = Tarefa(titulo, nota, data);
 
-                Navigator.pop(context, novaTarefa);  // Retorna a nova tarefa
-              },
+                    Navigator.pop(context, novaTarefa);
+                  },
+                  child: const Text(
+                    'Adicionar Tarefa',
+                    style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
