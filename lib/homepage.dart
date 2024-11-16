@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_illumina/metodosEstudos.dart';
+import 'package:flutter_application_illumina/screens/perfil/perfil.dart';
 import 'package:flutter_application_illumina/screens/tarefa/tarefas.dart';
 import 'package:flutter_application_illumina/screens/pomodoro/pomodoro.dart';
 
@@ -16,7 +17,8 @@ class _HomePageState extends State<HomePage> {
   final screens = [
     const MetodosEstudos(),
     const Tarefas(),
-    const Pomodoro()
+    const Pomodoro(),
+    const Perfil()
   ];
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,10 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem( 
             icon: Icon(Icons.timer), 
             label: 'Pomodoro',)
+            , 
+          BottomNavigationBarItem( 
+            icon: Icon(Icons.person_3_outlined), 
+            label: 'Perfil',)
 
         ],
       ),
