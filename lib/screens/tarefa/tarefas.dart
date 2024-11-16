@@ -42,44 +42,45 @@ class _TarefasState extends State<Tarefas> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+  final width = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-        children: [
-          _cabecalho(context),
-          _dateBar(),
-          const SizedBox(
-            height: 50
-            ),
-          _tarefasFiltradas().isEmpty
-              ? const Center(child: Text("Nenhuma tarefa para hoje.", 
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16
-              ),))
-              : Column(
+  return Scaffold(
+    body: Column(
+      children: [
+        _cabecalho(context),
+        _dateBar(),
+        const SizedBox(height: 50),
+        Expanded(
+          child: _tarefasFiltradas().isEmpty
+              ? const Center(
+                  child: Text(
+                    "Nenhuma tarefa para hoje.",
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                )
+              : ListView(
                   children: _tarefasFiltradas().map((tarefa) {
                     return ListTile(
-                      title: Text(tarefa.titulo, 
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16 
-                        ),),
-                      subtitle: Text(tarefa.nota,
-                      style: const TextStyle(
-                        color: Color.fromRGBO(145, 156, 174, 1),
-                        fontSize: 14
+                      title: Text(
+                        tarefa.titulo,
+                        style: const TextStyle(
+                            color: Colors.white, fontSize: 18),
                       ),
+                      subtitle: Text(
+                        tarefa.nota,
+                        style: const TextStyle(
+                            color: Color.fromRGBO(145, 156, 174, 1),
+                            fontSize: 14),
                       ),
                     );
                   }).toList(),
                 ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
+
 
   _cabecalho(BuildContext context) {
     return Container(
