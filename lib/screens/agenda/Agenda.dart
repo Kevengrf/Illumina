@@ -1,9 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class Agenda extends StatefulWidget {
   const Agenda({super.key});
 
-    @override
-    State<StatefulWidget> createState() => AgendaState();
-  
+  @override
+  State<Agenda> createState() => AgendaState();
+}
+
+class AgendaState extends State<Agenda> {
+
+  DateTime today = DateTime.now();
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: content(),
+    );
+  }
+  Widget content() {
+    return Column(children: [
+      Text("123"),
+      Container(
+        child: TableCalendar(
+          locale: "pt_BR",
+        focusedDay: today,
+        firstDay: DateTime.utc(2010, 10, 16),
+        lastDay: DateTime(2030, 3, 14)),
+      )
+    ],
+    );
+  }
 }
