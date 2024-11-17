@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_illumina/screens/agenda/Evento.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class Agenda extends StatefulWidget {
@@ -11,13 +12,31 @@ class Agenda extends StatefulWidget {
 class AgendaState extends State<Agenda> {
 
   DateTime today = DateTime.now();
+  DateTime selectedDay = DateTime.now();
 
-  void _onDaySelected(DateTime day,DateTime focusedDay) {
+  Map<DateTime, List<Evento>> eventos = {};
+
+  void _addEvento(DateTime date, String title) {
+    setState(() {
+      if (eventos[date] == null) {
+        eventos[date] = [];
+      }
+      eventos[date]!.add(Evento(title));
+    });
+  }
+
+  void _onDaySelected(DateTime day, DateTime focusedDay) {
+    setState(() {
+      selectedDay = day;
+    });
+  }
+
+  /*void _onDaySelected(DateTime day,DateTime focusedDay) {
     setState(() {
       today = day;
     });
   }
-
+  */
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +57,7 @@ class AgendaState extends State<Agenda> {
         firstDay: DateTime.utc(2010, 10, 16),
         lastDay: DateTime(2030, 3, 14),
         onDaySelected: _onDaySelected,
-        headerStyle: const HeaderStyle(
+        headerStyle: HeaderStyle(
         formatButtonVisible: false,
         titleCentered: true,
         titleTextStyle: TextStyle(color: Colors.white),
@@ -69,6 +88,21 @@ class AgendaState extends State<Agenda> {
           weekendStyle: TextStyle(color: Color.fromRGBO(255, 234, 0, 1),)),
         ),
       ),
-    ]);
+      Expanded(child: ListView(
+        children: eventos[selectedDay]?.map((evento) {
+          return ListTile(
+            title: Text (evento.title),
+          );
+        }).toList() ?? [],
+      ),
+    ),
+    Padding(padding: const EdgeInsets.all(8.0),
+    child: ElevatedButton(onPressed: () {
+      _addEvento(selectedDay, "Evento ${eventos[selectedDay]?.length ?? 0 + 1}");
+    },
+    child: Text('Adicionar evento')),
+    )
+    ],
+    );
   }
 }
