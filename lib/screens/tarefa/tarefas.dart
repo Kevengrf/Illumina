@@ -7,7 +7,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_application_illumina/repository/TarefaRepository.dart';
 
 class Tarefas extends StatefulWidget {
-  const Tarefas({Key? key}) : super(key: key);
+  const Tarefas({super.key});
 
   @override
   State<Tarefas> createState() => _TarefasState();
@@ -43,10 +43,7 @@ class _TarefasState extends State<Tarefas> {
     return Scaffold(
       body: Column(
         children: [
-          Cabecalho(context, now, (Tarefa tarefa) {
-            setState(() {
-            });
-          }),
+          Cabecalho(context, now),
           CarrosselDatas(_selectedDate, (date) {
             setState(() {
               _selectedDate = date;
@@ -84,7 +81,7 @@ class _TarefasState extends State<Tarefas> {
                         style: const TextStyle(color: Colors.white, fontSize: 18),
                       ),
                       subtitle: Text(
-                        tarefa['nota'] ?? 'Sem nota',
+                        tarefa['nota'],
                         style: const TextStyle(color: Color.fromRGBO(145, 156, 174, 1), fontSize: 14),
                       ),
                     );
