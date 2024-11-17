@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
     const MetodosEstudos(),
     const Tarefas(),
     const Pomodoro(),
-    const Perfil()
+    const Perfil(),
   ];
   @override
   Widget build(BuildContext context) {
