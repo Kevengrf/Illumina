@@ -22,7 +22,6 @@ class AgendaState extends State<Agenda> {
   }
   Widget content() {
     return Column(children: [
-      Text("123"),
       Container(
         child: TableCalendar(
           locale: "pt_BR",
