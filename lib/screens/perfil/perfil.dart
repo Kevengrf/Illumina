@@ -23,10 +23,10 @@ class PerfilState extends State<Perfil> {
         body: ListView(
       children: [
         Padding(
-          padding: new EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               Container(
                 child: (const Text(
                   "NeymarJr",
@@ -57,7 +57,7 @@ class PerfilState extends State<Perfil> {
                  direction: Axis.vertical,
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
-                   const Opacity(
+                   Opacity(
                        opacity: 0.5,
                        child: (Padding(
                            padding: EdgeInsets.only(left: 8.0),
@@ -69,7 +69,7 @@ class PerfilState extends State<Perfil> {
                                color: Colors.white,
                              ),
                            ))))),
-                   const Row(
+                   Row(
                      children: [
                        Expanded(
                          child: Card(
@@ -90,7 +90,7 @@ class PerfilState extends State<Perfil> {
                  direction: Axis.vertical,
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
-                   const Opacity(
+                   Opacity(
                        opacity: 0.5,
                        child: (Padding(
                            padding: EdgeInsets.only(left: 8.0),
@@ -102,7 +102,7 @@ class PerfilState extends State<Perfil> {
                                color: Colors.white,
                              ),
                            ))))),
-                   const Row(
+                   Row(
                      children: [
                        Expanded(
                          child: Card(
@@ -123,7 +123,7 @@ class PerfilState extends State<Perfil> {
                  direction: Axis.vertical,
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
-                   const Opacity(
+                   Opacity(
                        opacity: 0.5,
                        child: (Padding(
                            padding: EdgeInsets.only(left: 8.0),
@@ -135,7 +135,7 @@ class PerfilState extends State<Perfil> {
                                color: Colors.white,
                              ),
                            ))))),
-                   const Row(
+                   Row(
                      children: [
                        Expanded(
                          child: Card(

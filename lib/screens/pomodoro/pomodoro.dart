@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 class Pomodoro extends StatefulWidget {
-  const Pomodoro({Key? key}) : super(key: key);
+  const Pomodoro({super.key});
 
   @override
   _PomodoroState createState() => _PomodoroState();
@@ -15,7 +15,7 @@ class _PomodoroState extends State<Pomodoro> {
   Timer? timer;
   void startTimer() {
     if (timer != null && timer!.isActive) return;
-    timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+    timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
       setState(() {
         if (currentTime > 0) {
           currentTime--;
@@ -48,17 +48,17 @@ class _PomodoroState extends State<Pomodoro> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pomodoro'),
+        title: const Text('Pomodoro'),
       ),
       body: ListView(children: [
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Stack(
               alignment: Alignment.center,
               children: <Widget>[
-                Container(
+                SizedBox(
                   width: 200,
                   height: 200,
                   child: CircularProgressIndicator(
@@ -72,10 +72,10 @@ class _PomodoroState extends State<Pomodoro> {
                   children: <Widget>[
                     Text(
                       '${(currentTime ~/ 60).toString().padLeft(2, '0')}:${(currentTime % 60).toString().padLeft(2, '0')}',
-                      style: TextStyle(fontSize: 40, color: Colors.white),
+                      style: const TextStyle(fontSize: 40, color: Colors.white),
                     ),
-                    SizedBox(height: 10),
-                    Text(
+                    const SizedBox(height: 10),
+                    const Text(
                       'Mão na massa!',
                       style: TextStyle(
                           fontSize: 16,
@@ -86,36 +86,36 @@ class _PomodoroState extends State<Pomodoro> {
                 ),
               ],
             ),
-            SizedBox(height: 100),
+            const SizedBox(height: 100),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 IconButton(
-                  icon: Icon(Icons.play_arrow, color: Colors.white),
+                  icon: const Icon(Icons.play_arrow, color: Colors.white),
                   onPressed: startTimer,
                   iconSize: 40,
                 ),
                 IconButton(
-                  icon: Icon(Icons.pause, color: Colors.white),
+                  icon: const Icon(Icons.pause, color: Colors.white),
                   onPressed: pauseTimer,
                   iconSize: 40,
                 ),
                 IconButton(
-                  icon: Icon(Icons.stop, color: Colors.white),
+                  icon: const Icon(Icons.stop, color: Colors.white),
                   onPressed: resetTimer,
                   iconSize: 40,
                 ),
                 IconButton(
-                  icon: Icon(Icons.fast_forward, color: Colors.white),
+                  icon: const Icon(Icons.fast_forward, color: Colors.white),
                   onPressed: skipTime,
                   iconSize: 40,
                 ),
               ],
             ),
-            SizedBox(height: 100),
+            const SizedBox(height: 100),
             Text(
               'Rodadas: $rounds',
-              style: TextStyle(fontSize: 24, color: Colors.white),
+              style: const TextStyle(fontSize: 24, color: Colors.white),
             ),
           ],
         ),

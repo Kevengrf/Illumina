@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_illumina/homepage.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +22,6 @@ class LoginPage extends StatelessWidget {
               Image.asset(
                 'assets/image/Logo.png', 
                 height: 80,
-              ),
-              const SizedBox(height: 4),
-              const Icon(
-                Icons.circle,
-                color: Colors.yellow,
-                size: 6,
               ),
               const SizedBox(height: 30),
               TextField(
@@ -54,14 +49,18 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                );
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.yellow),
-                  foregroundColor: MaterialStateProperty.all(Colors.black),
-                  minimumSize: MaterialStateProperty.all(
+                  backgroundColor: WidgetStateProperty.all(Colors.yellow),
+                  foregroundColor: WidgetStateProperty.all(Colors.black),
+                  minimumSize: WidgetStateProperty.all(
                     const Size(double.infinity, 50),
                   ),
-                  shape: MaterialStateProperty.all(
+                  shape: WidgetStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),

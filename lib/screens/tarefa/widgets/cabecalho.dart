@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_application_illumina/screens/tarefa/formTarefa.dart';
 import 'package:flutter_application_illumina/models/Tarefa.dart';
 
-Widget Cabecalho(BuildContext context, DateTime now, Function(Tarefa) addTarefa) {
+Widget Cabecalho(BuildContext context, DateTime now) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
     child: Card(
@@ -26,7 +26,7 @@ Widget Cabecalho(BuildContext context, DateTime now, Function(Tarefa) addTarefa)
         trailing: ElevatedButton.icon(
           style: ButtonStyle(
             backgroundColor:
-                MaterialStateProperty.all(Color.fromRGBO(255, 234, 0, 1)),
+                WidgetStateProperty.all(const Color.fromRGBO(255, 234, 0, 1)),
           ),
           icon: const Icon(Icons.add, color: Colors.black),
           label: const Text(
@@ -40,10 +40,6 @@ Widget Cabecalho(BuildContext context, DateTime now, Function(Tarefa) addTarefa)
                 builder: (context) => const FormTarefa(),
               ),
             );
-
-            if (tarefa != null) {
-              addTarefa(tarefa);
-            }
           },
         ),
       ),

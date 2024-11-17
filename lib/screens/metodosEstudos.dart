@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 
 class MetodosEstudos extends StatelessWidget {
-  const MetodosEstudos({Key? key}) : super(key: key);
+  const MetodosEstudos({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Metodos de Estudo'),
-      ),
-      body: const Column(
+    return const Scaffold(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
