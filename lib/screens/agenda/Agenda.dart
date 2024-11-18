@@ -57,7 +57,7 @@ class AgendaState extends State<Agenda> {
         firstDay: DateTime.utc(2010, 10, 16),
         lastDay: DateTime(2030, 3, 14),
         onDaySelected: _onDaySelected,
-        headerStyle: HeaderStyle(
+        headerStyle: const HeaderStyle(
         formatButtonVisible: false,
         titleCentered: true,
         titleTextStyle: TextStyle(color: Colors.white),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_illumina/screens/login/login.dart';
+import 'package:flutter_application_illumina/screens/pomodoro/pomodoro.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
-import 'homepage.dart';
+import 'appBody.dart';
 
 Future<void> main() async {
   const keyApplicationId = 'dqZBCoWIex7uTx8M0CRlOnzKKADF0qclYmzZxQgM';
@@ -38,7 +39,12 @@ class MyApp extends StatelessWidget {
         Locale('en', 'US'),
         Locale('pt', 'BR'),
       ],
-      home: const LoginPage(), //HomePage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const LoginPage(),
+        '/appbody': (context) => const AppBody(),
+        '/pomodoro': (context) => const Pomodoro(),
+      },
     );
   }
 }

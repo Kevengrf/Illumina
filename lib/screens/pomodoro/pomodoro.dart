@@ -48,7 +48,19 @@ class _PomodoroState extends State<Pomodoro> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pomodoro'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new),
+          color: Colors.white,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: const Text(
+          'Pomodoro',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
       ),
       body: ListView(children: [
         Column(

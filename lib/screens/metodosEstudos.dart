@@ -5,20 +5,33 @@ class MetodosEstudos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-            'Tela de Metodos de Estudos',
-            style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-              color: Colors.red),
+          Card(
+            child: ListTile(
+              onTap: () {
+                Navigator.pushNamed(context, '/pomodoro');
+              },
+              title: const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "Pomodoro",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  Icon(
+                    Icons.access_time,
+                    size: 48,
+                    color: Colors.grey,
+                  ),
+                  SizedBox(height: 8),
+                ],
+              ),
+            ),
           ),
-          )
         ],
       ),
     );

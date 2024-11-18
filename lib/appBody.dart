@@ -5,14 +5,14 @@ import 'package:flutter_application_illumina/screens/perfil/perfil.dart';
 import 'package:flutter_application_illumina/screens/tarefa/tarefas.dart';
 import 'package:flutter_application_illumina/screens/pomodoro/pomodoro.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class AppBody extends StatefulWidget {
+  const AppBody({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<AppBody> createState() => _AppBodyState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _AppBodyState extends State<AppBody> {
   int currentIndex = 0;
   final screens = [
     const MetodosEstudos(),
