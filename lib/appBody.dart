@@ -18,9 +18,7 @@ class _AppBodyState extends State<AppBody> {
   final screens = [
     const MetodosEstudos(),
     const Tarefas(),
-    const Pomodoro(),
     const Agenda(),
-    const Perfil()
   ];
   @override
   Widget build(BuildContext context) {
@@ -40,9 +38,9 @@ class _AppBodyState extends State<AppBody> {
           title: const Text("Minha conta"),
           onTap: () {
             Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Perfil()),
-                );
+              context,
+              MaterialPageRoute(builder: (context) => const Perfil()),
+            );
           },
         ),
       ])),
@@ -64,21 +62,13 @@ class _AppBodyState extends State<AppBody> {
             label: 'Metodos',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.assignment_outlined),
+            icon: Icon(Icons.checklist),
             label: 'Tarefas',
-             // Adicionando o novo ícone para Pomodoro )
-          ), 
-          BottomNavigationBarItem( 
-            icon: Icon(Icons.timer), 
-            label: 'Pomodoro',)
-            , 
-          BottomNavigationBarItem(icon: Icon(Icons.calendar_today),
-          label: 'Agenda',)
-          ,
-          BottomNavigationBarItem( 
-            icon: Icon(Icons.person_3_outlined), 
-            label: 'Perfil',)
-
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today),
+            label: 'Agenda',
+          )
         ],
       ),
     );

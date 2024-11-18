@@ -41,17 +41,6 @@ class _MetodosEstudosState extends State<MetodosEstudos> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF292F3E),
-        elevation: 0,
-        title: const Row(
-          children: [
-            Icon(Icons.person, color: Colors.grey, size: 30),
-            SizedBox(width: 10),
-            Text('Olá, NeymarJR', style: TextStyle(fontSize: 18)),
-          ],
-        ),
-      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
@@ -114,32 +103,6 @@ class _MetodosEstudosState extends State<MetodosEstudos> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xFF292F3E),
-        unselectedItemColor: Colors.grey,
-        selectedItemColor: Colors.yellow,
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            label: 'Métodos',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.checklist),
-            label: 'Tarefas',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            label: 'Agenda',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Config',
-          ),
-        ],
       ),
     );
   }

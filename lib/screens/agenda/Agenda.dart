@@ -41,7 +41,6 @@ class AgendaState extends State<Agenda> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: content(),
     );
   }
