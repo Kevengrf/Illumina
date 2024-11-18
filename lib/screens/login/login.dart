@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart';
-import 'package:intl/intl.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -9,7 +7,7 @@ class Login extends StatefulWidget {
   State<StatefulWidget> createState() => LoginState();
 }
 
-  class LoginState extends State<Login> {
+class LoginState extends State<Login> {
   final TextEditingController userController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -25,14 +23,9 @@ class Login extends StatefulWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 80),
-              const Text(
-                'ILLUMINA',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.normal,
-                  color: Colors.yellow,
-                ),
+              Image.asset(
+                'assets/image/Logo.png',
+                height: 80,
               ),
               const SizedBox(height: 70),
               TextField(
@@ -67,18 +60,26 @@ class Login extends StatefulWidget {
               ),
               const SizedBox(height: 40),
               SizedBox(
-                width: 15, // Define a largura do botão
+                width: 15,
                 child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.yellow,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/appbody');
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.all(Colors.yellow),
+                    foregroundColor: WidgetStateProperty.all(Colors.black),
+                    minimumSize: WidgetStateProperty.all(
+                      const Size(double.infinity, 50),
+                    ),
+                    shape: WidgetStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
                   ),
                   child: const Text(
                     'Entrar',
-                    style: TextStyle(fontSize: 18, color: Colors.black),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -114,4 +115,3 @@ class Login extends StatefulWidget {
     );
   }
 }
-  
