@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         appBarTheme: const AppBarTheme(
           backgroundColor: Color.fromRGBO(41, 50, 62, 1),
           ),
-        scaffoldBackgroundColor: const Color.fromRGBO(41, 50, 62, 1)
+        scaffoldBackgroundColor: const Color.fromRGBO(41, 50, 62, 1),
       ),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,

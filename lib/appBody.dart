@@ -23,27 +23,37 @@ class _AppBodyState extends State<AppBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+          iconTheme: const IconThemeData(color: Color.fromRGBO(255, 234, 0, 1)),
+        ),
       drawer: Drawer(
-          child: ListView(padding: EdgeInsets.zero, children: <Widget>[
-        const UserAccountsDrawerHeader(
-          accountEmail: Text("NeymarJR@gmail.com"),
-          accountName: Text("Cai Cai"),
-          currentAccountPicture: CircleAvatar(
-            child: Text("IL"),
-          ),
+        
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            const UserAccountsDrawerHeader(
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 207, 155, 0)
+              ),
+              accountEmail: Text("NeymarJR@gmail.com"),
+              accountName: Text("Cai Cai"),
+              currentAccountPicture: CircleAvatar(
+                child: Text("IL"),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text("Perfil"),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Perfil()),
+                );
+              },
+            ),
+          ],
         ),
-        ListTile(
-          leading: const Icon(Icons.person),
-          title: const Text("Minha conta"),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const Perfil()),
-            );
-          },
-        ),
-      ])),
+      ),
       body: IndexedStack(
         index: currentIndex,
         children: screens,
