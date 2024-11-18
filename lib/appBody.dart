@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_illumina/screens/agenda/Agenda.dart';
+import 'package:flutter_application_illumina/screens/login/Login.dart';
 import 'package:flutter_application_illumina/screens/metodosEstudos.dart';
 import 'package:flutter_application_illumina/screens/perfil/perfil.dart';
 import 'package:flutter_application_illumina/screens/tarefa/tarefas.dart';
@@ -19,6 +20,7 @@ class _AppBodyState extends State<AppBody> {
     const Tarefas(),
     const Pomodoro(),
     const Agenda(),
+    const Perfil()
   ];
   @override
   Widget build(BuildContext context) {
@@ -64,15 +66,19 @@ class _AppBodyState extends State<AppBody> {
           BottomNavigationBarItem(
             icon: Icon(Icons.assignment_outlined),
             label: 'Tarefas',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.timer),
-            label: 'Pomodoro',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            label: 'Agenda',
-          ),
+             // Adicionando o novo ícone para Pomodoro )
+          ), 
+          BottomNavigationBarItem( 
+            icon: Icon(Icons.timer), 
+            label: 'Pomodoro',)
+            , 
+          BottomNavigationBarItem(icon: Icon(Icons.calendar_today),
+          label: 'Agenda',)
+          ,
+          BottomNavigationBarItem( 
+            icon: Icon(Icons.person_3_outlined), 
+            label: 'Perfil',)
+
         ],
       ),
     );
