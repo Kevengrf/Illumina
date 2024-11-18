@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
       ],
       initialRoute: '/',
       routes: {
-        '/': (context) => const LoginPage(),
+        '/': (context) => const Login(),
         '/appbody': (context) => const AppBody(),
         '/pomodoro': (context) => const Pomodoro(),
       },
