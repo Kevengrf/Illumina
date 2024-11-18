@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_illumina/appBody.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -7,20 +6,15 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
       body: Center(
         child: Container(
-          width: 350, 
+          width: 350,
           padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: const Color(0xFF1E2431),
-            borderRadius: BorderRadius.circular(8),
-          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
-                'assets/image/Logo.png', 
+                'assets/image/Logo.png',
                 height: 80,
               ),
               const SizedBox(height: 30),
@@ -49,9 +43,8 @@ class Login extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                Navigator.pushNamed(context, '/appbody');
-              },
-                
+                  Navigator.pushNamed(context, '/appbody');
+                },
                 style: ButtonStyle(
                   backgroundColor: WidgetStateProperty.all(Colors.yellow),
                   foregroundColor: WidgetStateProperty.all(Colors.black),
@@ -71,8 +64,7 @@ class Login extends StatelessWidget {
               ),
               const SizedBox(height: 15),
               GestureDetector(
-                onTap: () {
-                },
+                onTap: () {},
                 child: const Text(
                   'Esqueci a senha',
                   style: TextStyle(color: Colors.white),
@@ -80,8 +72,7 @@ class Login extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               GestureDetector(
-                onTap: () {
-                },
+                onTap: () {},
                 child: RichText(
                   text: const TextSpan(
                     text: 'Não tem uma conta? ',

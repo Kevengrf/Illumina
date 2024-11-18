@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_illumina/screens/agenda/Agenda.dart';
-import 'package:flutter_application_illumina/screens/login/Login.dart';
+import 'package:flutter_application_illumina/screens/login/login.dart';
 import 'package:flutter_application_illumina/screens/metodosEstudos.dart';
 import 'package:flutter_application_illumina/screens/perfil/perfil.dart';
 import 'package:flutter_application_illumina/screens/tarefa/tarefas.dart';
