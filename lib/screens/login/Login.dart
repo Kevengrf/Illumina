@@ -98,7 +98,9 @@ class LoginState extends State<Login> {
                         style: TextStyle(color: Colors.white),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/cadastro');
+                        },
                         child: const Text(
                           'Crie uma',
                           style: TextStyle(color: Colors.yellow),

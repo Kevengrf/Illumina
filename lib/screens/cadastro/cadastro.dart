@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-class CadastroPage extends StatelessWidget {
+class Cadastro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,11 +67,11 @@ class CadastroPage extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                 
+                  Navigator.pushNamed(context, '/');
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.yellow,
-                  onPrimary: Colors.black,
+                  foregroundColor: Colors.black, 
+                  backgroundColor: Colors.yellow,
                   minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
@@ -85,7 +85,7 @@ class CadastroPage extends StatelessWidget {
               const SizedBox(height: 15),
               GestureDetector(
                 onTap: () {
-                  Navigator.pop(context, '/login'); 
+                  Navigator.pushNamed(context, '/'); 
                 },
                 child: const Text(
                   'Já tem uma conta? Faça Login',

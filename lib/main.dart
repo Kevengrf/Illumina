@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_illumina/screens/cadastro/cadastro.dart';
 import 'package:flutter_application_illumina/screens/login/login.dart';
 import 'package:flutter_application_illumina/screens/pomodoro/pomodoro.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const Login(),
         '/appbody': (context) => const AppBody(),
         '/pomodoro': (context) => const Pomodoro(),
+        '/cadastro': (context) => Cadastro(),
       },
     );
   }

@@ -41,12 +41,11 @@ class _MetodosEstudosState extends State<MetodosEstudos> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 20),
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
@@ -97,6 +96,7 @@ class _MetodosEstudosState extends State<MetodosEstudos> {
                     iconColor: Colors.red,
                     onPressed: null,
                     isEnabled: false,
+                  
                   ),
                 ],
               ),
