@@ -1,13 +1,16 @@
 class Tarefa {
+  String? id;
+  String? titulo;
+  String? nota;
+  DateTime? data;
   //Long idUsuario
-  String titulo;
-  String nota;
-  DateTime data;
-  //bool concluido;
+  bool concluido;
 
-  Tarefa(
+  Tarefa({
+    this.id,
     this.titulo,
     this.nota,
     this.data,
-  );
+    this.concluido = false,
+  });
 }

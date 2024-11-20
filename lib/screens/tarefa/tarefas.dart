@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_illumina/data/TarefaData.dart';
 import 'package:flutter_application_illumina/models/Tarefa.dart';
 import 'package:flutter_application_illumina/screens/tarefa/widgets/cabecalho.dart';
 import 'package:flutter_application_illumina/screens/tarefa/widgets/carrosselDatas.dart';
+import 'package:flutter_application_illumina/service/TarefaService.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:flutter_application_illumina/repository/TarefaRepository.dart';
 
 class Tarefas extends StatefulWidget {
   const Tarefas({super.key});
@@ -16,20 +17,33 @@ class Tarefas extends StatefulWidget {
 class _TarefasState extends State<Tarefas> {
   final now = DateTime.now();
   late DateTime _selectedDate;
-  late Future<List<Map<String, dynamic>>> _tarefasFuture;
+  late Future<List<Tarefa>> _tarefasFuture;
+
+  final TarefaService _tarefaService = TarefaService();
 
   @override
   void initState() {
     super.initState();
-    initializeDateFormatting('pt_BR', null);
-    Intl.defaultLocale = 'pt_BR';
     _selectedDate = now;
-    _tarefasFuture = TarefaRepository().getAllTarefa(); 
+    _carregarTarefas();
   }
 
-  List<Map<String, dynamic>> _tarefasFiltradas(List<Map<String, dynamic>> tarefas) {
+  void _carregarTarefas() {
+    setState(() {
+      _tarefasFuture = _tarefaService.getAllTarefas();
+    });
+  }
+
+  void _atualizarTarefas() {
+    setState(() {
+      _tarefasFuture = TarefaData().getAllTarefa();
+    });
+  }
+
+  List<Tarefa> _tarefasFiltradas(List<Tarefa> tarefas) {
     return tarefas.where((tarefa) {
-      DateTime tarefaData = DateTime.parse(tarefa['data']);
+      final tarefaData = tarefa.data;
+      if (tarefaData == null) return false;
       return tarefaData.year == _selectedDate.year &&
           tarefaData.month == _selectedDate.month &&
           tarefaData.day == _selectedDate.day;
@@ -43,7 +57,7 @@ class _TarefasState extends State<Tarefas> {
     return Scaffold(
       body: Column(
         children: [
-          Cabecalho(context, now),
+          Cabecalho(context, now, _atualizarTarefas),
           CarrosselDatas(_selectedDate, (date) {
             setState(() {
               _selectedDate = date;
@@ -51,7 +65,7 @@ class _TarefasState extends State<Tarefas> {
           }),
           const SizedBox(height: 50),
           Expanded(
-            child: FutureBuilder<List<Map<String, dynamic>>>(
+            child: FutureBuilder<List<Tarefa>>(
               future: _tarefasFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -71,27 +85,78 @@ class _TarefasState extends State<Tarefas> {
                   );
                 }
 
-                List<Map<String, dynamic>> tarefasFiltradas = _tarefasFiltradas(snapshot.data!);
+                final tarefasFiltradas = _tarefasFiltradas(snapshot.data!);
 
-                return ListView(
-                  children: tarefasFiltradas.map((tarefa) {
+                return ListView.builder(
+                  itemCount: tarefasFiltradas.length,
+                  itemBuilder: (context, index) {
+                    final tarefa = tarefasFiltradas[index];
                     return ListTile(
+                      leading: Checkbox(
+                        value: tarefa.concluido,
+                        onChanged: (bool? newValue) {
+                          setState(() {
+                            tarefa.concluido = newValue ?? false;
+                          });
+                          _tarefaService.atualizarTarefa(tarefa);
+                        },
+                      ),
                       title: Text(
-                        tarefa['titulo'],
-                        style: const TextStyle(color: Colors.white, fontSize: 18),
+                        tarefa.titulo ?? "Título vazio",
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 18),
                       ),
                       subtitle: Text(
-                        tarefa['nota'],
-                        style: const TextStyle(color: Color.fromRGBO(145, 156, 174, 1), fontSize: 14),
+                        tarefa.nota ?? "Nota vazia",
+                        style: const TextStyle(
+                            color: Color.fromRGBO(145, 156, 174, 1),
+                            fontSize: 14),
+                      ),
+                      trailing: IconButton(
+                        onPressed: () {
+                          _exibirMenuTarefa(context, tarefa);
+                        },
+                        icon: const Icon(Icons.more_vert),
+                        style: IconButton.styleFrom(
+                            foregroundColor:
+                                const Color.fromRGBO(145, 156, 174, 1)),
                       ),
                     );
-                  }).toList(),
+                  },
                 );
               },
             ),
           ),
         ],
       ),
+    );
+  }
+
+  void _exibirMenuTarefa(BuildContext context, Tarefa tarefa) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Wrap(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.delete),
+              title: const Text('Excluir'),
+              onTap: () {
+                Navigator.pop(context);
+                _tarefaService.excluirTarefa(tarefa.id!).then((success) {
+                  if (success) {
+                    _carregarTarefas();
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Erro ao excluir a tarefa')),
+                    );
+                  }
+                });
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

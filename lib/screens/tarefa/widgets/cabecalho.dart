@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_application_illumina/screens/tarefa/formTarefa.dart';
-import 'package:flutter_application_illumina/models/Tarefa.dart';
 
-Widget Cabecalho(BuildContext context, DateTime now) {
+Widget Cabecalho(BuildContext context, DateTime now, Function atualizarTarefas) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
     child: Card(
@@ -34,12 +33,15 @@ Widget Cabecalho(BuildContext context, DateTime now) {
             style: TextStyle(color: Colors.black),
           ),
           onPressed: () async {
-            final tarefa = await Navigator.push(
+            final tarefaAdicionada = await Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => const FormTarefa(),
               ),
             );
+            if (tarefaAdicionada == true) {
+              atualizarTarefas();
+            }
           },
         ),
       ),

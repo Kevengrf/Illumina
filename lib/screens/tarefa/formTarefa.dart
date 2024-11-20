@@ -16,14 +16,14 @@ class _FormTarefaState extends State<FormTarefa> {
   final TextEditingController _controladorData = TextEditingController();
 
   DateTime selecionarData = DateTime.now();
-  
+
   late TarefaService tarefaService;
 
   @override
   void initState() {
     super.initState();
     Intl.defaultLocale = 'pt_BR';
-    tarefaService = TarefaService(); 
+    tarefaService = TarefaService();
   }
 
   @override
@@ -48,6 +48,7 @@ class _FormTarefaState extends State<FormTarefa> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            //campo de titulo
             TextField(
               controller: _controladorTitulo,
               style: const TextStyle(
@@ -59,8 +60,10 @@ class _FormTarefaState extends State<FormTarefa> {
                 border: OutlineInputBorder(),
               ),
             ),
+
             const SizedBox(height: 16),
-            
+
+            //campo de nota
             TextField(
               controller: _controladorNota,
               style: const TextStyle(
@@ -72,7 +75,10 @@ class _FormTarefaState extends State<FormTarefa> {
                 border: OutlineInputBorder(),
               ),
             ),
+
             const SizedBox(height: 16),
+
+            //campo de data
             GestureDetector(
               onTap: () async {
                 DateTime? pickedDate = await showDatePicker(
@@ -105,7 +111,10 @@ class _FormTarefaState extends State<FormTarefa> {
                 ),
               ),
             ),
+
             const SizedBox(height: 24),
+
+            //botçao para add uma tarefa
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -115,15 +124,21 @@ class _FormTarefaState extends State<FormTarefa> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 24, vertical: 12),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     final String titulo = _controladorTitulo.text;
                     final String nota = _controladorNota.text;
                     final DateTime data = selecionarData;
 
-                    Tarefa novaTarefa = Tarefa(titulo, nota, data);
-                    tarefaService.adicionarTarefa(novaTarefa);
-                    Navigator.pop(context);
+                    Tarefa novaTarefa = Tarefa(
+                      titulo: titulo,
+                      nota: nota,
+                      data: data,
+                    );
 
+                    bool sucesso = await tarefaService.adicionarTarefa(novaTarefa);
+                    if (sucesso) {
+                      Navigator.pop(context,true);
+                    }
                   },
                   child: const Text(
                     'Adicionar Tarefa',
