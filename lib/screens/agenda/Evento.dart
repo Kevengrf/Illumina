@@ -1,5 +1,9 @@
 class Evento {
-  final String title;
+    String title;
+    String description;
 
-  Evento(this.title);
+    Evento({
+        required this.title,
+        required this.description,
+    });
 }

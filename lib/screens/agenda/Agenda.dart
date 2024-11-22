@@ -8,54 +8,122 @@ class Agenda extends StatefulWidget {
   @override
   State<Agenda> createState() => AgendaState();
 }
-
 class AgendaState extends State<Agenda> {
 
   DateTime today = DateTime.now();
-  DateTime selectedDay = DateTime.now();
+  //DateTime selectedDay = DateTime.now();
+  late final ValueNotifier<List<Evento>> _selectedEvents;
+  CalendarFormat _calendarFormat = CalendarFormat.month;
 
-  Map<DateTime, List<Evento>> eventos = {};
+  Map<DateTime, List<Evento>> events = {};
+  RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOff;
+  DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
+  DateTime? _rangeStart;
+  DateTime? _rangeEnd;
 
-  void _addEvento(DateTime date, String title) {
-    setState(() {
-      if (eventos[date] == null) {
-        eventos[date] = [];
-      }
-      eventos[date]!.add(Evento(title));
-    });
+  @override
+  void initState() {
+    super.initState();
+    _selectedDay = _focusedDay;
+    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!)
+    
+    );
+    loadPreviousEvents();
   }
 
-  void _onDaySelected(DateTime day, DateTime focusedDay) {
-    setState(() {
-      selectedDay = day;
-    });
+  @override
+  void dispose() {
+    _selectedEvents.dispose();
+    super.dispose();
   }
 
-  /*void _onDaySelected(DateTime day,DateTime focusedDay) {
-    setState(() {
-      today = day;
-    });
+    List<Evento> _getEventsForDay(DateTime day) {
+    return events[day] ?? [];
   }
-  */
+
+  List<Evento> _getEventsForRange(DateTime start, DateTime end) {
+    final days = daysInRange(start, end);
+    return [
+      for (final day in days) ..._getEventsForDay(day),
+    ];
+  }
+
+  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    if (!isSameDay(_selectedDay, selectedDay)) {
+      setState(() {
+        _selectedDay = selectedDay;
+        _focusedDay = focusedDay;
+        _rangeStart = null;
+        _rangeEnd = null;
+        _rangeSelectionMode = RangeSelectionMode.toggledOff;
+      });
+      _selectedEvents.value = _getEventsForDay(selectedDay);
+    }
+  }
+
+  void _onRangeSelected(DateTime? start, DateTime? end, DateTime focusedDay) {
+    setState(() {
+      _selectedDay = null;
+      _focusedDay = focusedDay;
+      _rangeStart = start;
+      _rangeEnd = end;
+      _rangeSelectionMode = RangeSelectionMode.toggledOn;
+    });
+
+    if (start != null && end != null) {
+      _selectedEvents.value = _getEventsForRange(start, end);
+    } else if (start != null) {
+      _selectedEvents.value = _getEventsForDay(start);
+    } else if (end != null) {
+      _selectedEvents.value = _getEventsForDay(end);
+    }
+  }
+  daysInRange(DateTime start, DateTime end) {}
+
+  final _titleController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  void clearController() {
+    _titleController.clear();
+    _descriptionController.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: content(),
-    );
-  }
-  Widget content() {
-    return Column(children: [
-      Container(
-        child: TableCalendar(
-          locale: "pt_BR",
-          rowHeight: 43,
-          availableGestures: AvailableGestures.all,
-          selectedDayPredicate: (day) => isSameDay(day, today),
-        focusedDay: today,
+    return SafeArea(
+      child: Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+        TableCalendar(
+        locale: "pt_BR",
+        rowHeight: 43,
+        availableGestures: AvailableGestures.all,
+        focusedDay: _focusedDay,
         firstDay: DateTime.utc(2010, 10, 16),
         lastDay: DateTime(2030, 3, 14),
+        weekendDays: const [DateTime.saturday, DateTime.sunday],
+        selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+        rangeStartDay: _rangeStart,
+        rangeEndDay: _rangeEnd,
+        calendarFormat: _calendarFormat,
+        rangeSelectionMode: _rangeSelectionMode,
+        eventLoader: _getEventsForDay,
+        startingDayOfWeek: StartingDayOfWeek.monday,
         onDaySelected: _onDaySelected,
+        onRangeSelected: _onRangeSelected,
+        onFormatChanged: (format) {
+                      if (_calendarFormat != format) {
+                        setState(() {
+                          _calendarFormat = format;
+                        });
+                      }
+                    },
+                    onPageChanged: (focusedDay) {
+                      _focusedDay = focusedDay;
+                    },
+
         headerStyle: const HeaderStyle(
         formatButtonVisible: false,
         titleCentered: true,
@@ -84,24 +152,110 @@ class AgendaState extends State<Agenda> {
             ),
           ),
           daysOfWeekStyle: const DaysOfWeekStyle(weekdayStyle: TextStyle(color: Colors.white),
-          weekendStyle: TextStyle(color: Color.fromRGBO(255, 234, 0, 1),)),
+          weekendStyle: TextStyle(color: Color.fromRGBO(255, 234, 0, 1),)
+            ),
+          ),
+        Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+decoration: BoxDecoration(
+    color: Theme.of(context).colorScheme.onInverseSurface),
+child: ValueListenableBuilder(
+  valueListenable: _selectedEvents,
+  builder: (context, value, _) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: value.map<Widget>((e) {
+        return Card(
+          color: Colors.white,
+          child: ListTile(
+            title: Text(e.title),
+            subtitle: Text(e.description),
+          ),
+        );
+      }).toList(),
+    );
+  },
+)
+
+        )
+          ],
+        ),
+        ),
+        
+              floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            // todo: Show dialog to user to input event
+            showDialog(
+                context: context, builder: (_) => _dialogWidget(context));
+          },
+          label: const Text('Add Events'),
+          icon: const Icon(Icons.add),
         ),
       ),
-      Expanded(child: ListView(
-        children: eventos[selectedDay]?.map((evento) {
-          return ListTile(
-            title: Text (evento.title),
-          );
-        }).toList() ?? [],
-      ),
-    ),
-    Padding(padding: const EdgeInsets.all(8.0),
-    child: ElevatedButton(onPressed: () {
-      _addEvento(selectedDay, "Evento ${eventos[selectedDay]?.length ?? 0 + 1}");
-    },
-    child: Text('Adicionar evento')),
-    )
-    ],
     );
   }
+
+  Widget textBtn(BuildContext context, String text, VoidCallback voidCallback) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton(
+        onPressed: () {
+          voidCallback();
+        },
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+  AlertDialog _dialogWidget(BuildContext context) {
+    return AlertDialog.adaptive(
+      scrollable: true,
+      title: const Text('Event name'),
+      content: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          children: [
+            TextField(
+              controller: _titleController,
+              decoration: const InputDecoration(helperText: 'Title'),
+            ),
+            TextField(
+              controller: _descriptionController,
+              decoration: const InputDecoration(helperText: 'ride'),
+            ),
+          ],
+        ),
+      ),
+      actions: [
+  ElevatedButton(
+    onPressed: () {
+      events.addAll({
+        _selectedDay!: [
+          ..._selectedEvents.value,
+          Evento(
+            title: _titleController.text,
+            description: _descriptionController.text
+          )
+        ]
+      });
+      _selectedEvents.value = _getEventsForDay(_selectedDay!);
+      clearController();
+      Navigator.of(context).pop();  // Substitua context.pop() por Navigator.of(context).pop()
+    },
+    child: const Text('Submit')
+  )
+]
+
+    );
+  }
+
+  void loadPreviousEvents() {
+    events = {
+      _selectedDay!: [Evento(title: '', description: '')],
+      _selectedDay!: [Evento(title: '', description: '')]
+    };
+  }
 }
+  
