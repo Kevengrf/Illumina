@@ -105,7 +105,7 @@ class PerfilState extends State<Perfil> {
                           ),
                         ],
                       ),
-                      // Campo de nome de usuário
+                    
                       const Opacity(
                         opacity: 0.5,
                         child: Padding(
@@ -135,7 +135,7 @@ class PerfilState extends State<Perfil> {
                           ),
                         ],
                       ),
-                      // Campo de senha
+                   
                       const Opacity(
                         opacity: 0.5,
                         child: Padding(
