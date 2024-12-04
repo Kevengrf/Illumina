@@ -188,8 +188,17 @@ child: ValueListenableBuilder(
             showDialog(
                 context: context, builder: (_) => _dialogWidget(context));
           },
-          label: const Text('Add Events'),
-          icon: const Icon(Icons.add),
+          label: const Text(
+            'Add Eventos',
+            style: TextStyle(
+              color: Colors.black,
+              ),
+            ),
+          icon: const Icon(
+            Icons.add,
+            color: Colors.black,
+            ),
+          backgroundColor: const Color.fromRGBO(255, 234, 0, 1),
         ),
       ),
     );
@@ -212,18 +221,18 @@ child: ValueListenableBuilder(
   AlertDialog _dialogWidget(BuildContext context) {
     return AlertDialog.adaptive(
       scrollable: true,
-      title: const Text('Event name'),
+      title: const Text('Nome do evento'),
       content: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
           children: [
             TextField(
               controller: _titleController,
-              decoration: const InputDecoration(helperText: 'Title'),
+              decoration: const InputDecoration(helperText: 'Título'),
             ),
             TextField(
               controller: _descriptionController,
-              decoration: const InputDecoration(helperText: 'ride'),
+              decoration: const InputDecoration(helperText: 'Descrição'),
             ),
           ],
         ),
@@ -242,9 +251,12 @@ child: ValueListenableBuilder(
       });
       _selectedEvents.value = _getEventsForDay(_selectedDay!);
       clearController();
-      Navigator.of(context).pop();  // Substitua context.pop() por Navigator.of(context).pop()
+      Navigator.of(context).pop();
     },
-    child: const Text('Submit')
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Color.fromRGBO(255, 234, 0, 1),
+    ),
+    child: const Text('Enviar')
   )
 ]
 
