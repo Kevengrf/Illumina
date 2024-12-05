@@ -1,5 +1,7 @@
+// cadastro.dart
 import 'package:flutter/material.dart';
-import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
+import 'package:flutter_application_illumina/data/UsuarioData.dart';
+import 'package:flutter_application_illumina/dtos/UsuarioCadastroDTO.dart';
 
 class Cadastro extends StatefulWidget {
   @override
@@ -10,9 +12,12 @@ class _CadastroState extends State<Cadastro> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   Future<void> _cadastro() async {
+    final usuarioData = UsuarioData();
+
     final email = emailController.text;
     final username = usernameController.text;
     final password = passwordController.text;
@@ -20,26 +25,27 @@ class _CadastroState extends State<Cadastro> {
 
     if (password != confirmPassword) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('As senhas não coincidem')),
+        const SnackBar(content: Text('As senhas não coincidem')),
       );
       return;
     }
 
-    final user = ParseObject('AppUser')
-      ..set('email', email)
-      ..set('username', username)
-      ..set('password', password);
+    final usuarioDTO = UsuarioCadastroDTO(
+      nome: username,
+      email: email,
+      senha: password,
+    );
 
-    var response = await user.save();
+    bool sucesso = await usuarioData.cadastro(usuarioDTO);
 
-    if (response.success) {
+    if (sucesso) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Cadastro realizado com sucesso!')),
+        const SnackBar(content: const Text('Cadastro realizado com sucesso!')),
       );
-      Navigator.pushNamed(context, '/login'); 
+      Navigator.pushNamed(context, '/');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erro: ${response.error?.message}')),
+        const SnackBar(content: Text('Erro ao realizar o cadastro')),
       );
     }
   }
@@ -126,16 +132,25 @@ class _CadastroState extends State<Cadastro> {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
-              const SizedBox(height: 15),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/');
-                },
-                child: const Text(
-                  'Já tem uma conta? Faça Login',
-                  style: TextStyle(color: Colors.yellow),
-                ),
-              ),
+              const Spacer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Já possui uma conta?',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/');
+                    },
+                    child: const Text(
+                      'Faça Login!',
+                      style: TextStyle(color: Colors.yellow),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),

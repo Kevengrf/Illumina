@@ -1,8 +1,8 @@
-class Login {
+class UsuarioLoginDTO {
   String? nome;
   String? senha;
 
-  Login({
+  UsuarioLoginDTO({
     this.nome,
     this.senha,
   });

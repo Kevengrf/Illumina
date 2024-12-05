@@ -47,11 +47,9 @@ class _MetodosEstudosState extends State<MetodosEstudos> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 16,
-                childAspectRatio: 1.2,
+              child: Wrap(
+                spacing: 16.0, // Espaço entre os itens horizontalmente
+                runSpacing: 16.0, // Espaço entre as linhas
                 children: [
                   _buildButton(
                     title: 'Pomodoro',
@@ -96,7 +94,6 @@ class _MetodosEstudosState extends State<MetodosEstudos> {
                     iconColor: Colors.red,
                     onPressed: null,
                     isEnabled: false,
-                  
                   ),
                 ],
               ),
@@ -117,11 +114,13 @@ class _MetodosEstudosState extends State<MetodosEstudos> {
     return GestureDetector(
       onTap: isEnabled ? onPressed : null,
       child: Container(
+        width: (MediaQuery.of(context).size.width - 48) / 2, // Divide a largura da tela em duas colunas
         decoration: BoxDecoration(
           color: const Color(0xFF383D4F),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0), // Ajusta o preenchimento
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

@@ -18,7 +18,7 @@ Widget CarrosselDatas(DateTime selectedDate, Function(DateTime) onDateChange) {
         color: Colors.grey,
       ),
       dateTextStyle: const TextStyle(
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: FontWeight.w600,
         color: Colors.grey,
       ),

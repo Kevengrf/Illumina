@@ -4,7 +4,6 @@ import 'package:flutter_application_illumina/screens/login/login.dart';
 import 'package:flutter_application_illumina/screens/pomodoro/pomodoro.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
-
 import 'appBody.dart';
 
 Future<void> main() async {
@@ -16,6 +15,7 @@ Future<void> main() async {
       clientKey: keyClientKey, debug: true);
   runApp(const MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

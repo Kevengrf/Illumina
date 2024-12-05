@@ -93,6 +93,9 @@ class _TarefasState extends State<Tarefas> {
                     final tarefa = tarefasFiltradas[index];
                     return ListTile(
                       leading: Checkbox(
+                        fillColor: WidgetStateProperty.all(
+                            const Color.fromARGB(41, 50, 62, 1)),
+                        checkColor: const Color.fromARGB(255, 7, 255, 61),
                         value: tarefa.concluido,
                         onChanged: (bool? newValue) {
                           setState(() {

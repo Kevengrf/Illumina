@@ -16,6 +16,7 @@ dependencies:
   parse_server_sdk_flutter: ^8.0.0
   path: ^1.9.0
   table_calendar: ^3.1.2
+  
 
 dev_dependencies:
   flutter_test:
