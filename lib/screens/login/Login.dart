@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_illumina/data/UsuarioData.dart';
-
-import '../../dtos/UsuarioLoginDTO.dart';
+import 'package:flutter_application_illumina/data/LoginData.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -13,7 +11,7 @@ class Login extends StatefulWidget {
 class LoginState extends State<Login> {
   final TextEditingController userController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final UsuarioData usuarioData = UsuarioData();
+  final LoginData loginData = LoginData();
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +38,10 @@ class LoginState extends State<Login> {
                   filled: true,
                   fillColor: const Color(0xffffffff),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(30.0),
                   ),
-                  contentPadding:
-                      const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                  contentPadding: const EdgeInsets.symmetric(
+                      vertical: 16, horizontal: 20),
                 ),
               ),
               const SizedBox(height: 20),
@@ -56,10 +54,10 @@ class LoginState extends State<Login> {
                   filled: true,
                   fillColor: const Color(0xffffffff),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(30.0),
                   ),
-                  contentPadding:
-                      const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                  contentPadding: const EdgeInsets.symmetric(
+                      vertical: 16, horizontal: 20),
                 ),
               ),
               const SizedBox(height: 40),
@@ -71,12 +69,7 @@ class LoginState extends State<Login> {
                     final nome = userController.text.trim();
                     final senha = passwordController.text.trim();
 
-                    final usuarioDTO = UsuarioLoginDTO(
-                      nome: nome,
-                      senha: senha,
-                    );
-
-                    final loginSuccess = await usuarioData.login(usuarioDTO);
+                    final loginSuccess = await loginData.login(nome, senha);
 
                     if (loginSuccess) {
                       Navigator.pushNamed(context, '/appbody');
@@ -90,9 +83,11 @@ class LoginState extends State<Login> {
                     }
                   },
                   style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all(Colors.yellow),
-                    foregroundColor: WidgetStateProperty.all(Colors.black),
-                    shape: WidgetStateProperty.all(
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.yellow),
+                    foregroundColor:
+                        MaterialStateProperty.all(Colors.black),
+                    shape: MaterialStateProperty.all(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -106,7 +101,9 @@ class LoginState extends State<Login> {
               ),
               const SizedBox(height: 10),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/forgotPassword');
+                },
                 child: const Text(
                   'Esqueci a senha',
                   style: TextStyle(color: Colors.white),

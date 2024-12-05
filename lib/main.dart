@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_illumina/screens/cadastro/cadastro.dart';
 import 'package:flutter_application_illumina/screens/login/login.dart';
 import 'package:flutter_application_illumina/screens/pomodoro/pomodoro.dart';
+import 'package:flutter_application_illumina/screens/login/ForgotPassword.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
+
 import 'appBody.dart';
 
 Future<void> main() async {
@@ -16,19 +18,17 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
           backgroundColor: Color.fromRGBO(41, 50, 62, 1),
-          ),
+        ),
         scaffoldBackgroundColor: const Color.fromRGBO(41, 50, 62, 1),
       ),
       localizationsDelegates: const [
@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
         '/appbody': (context) => const AppBody(),
         '/pomodoro': (context) => const Pomodoro(),
         '/cadastro': (context) => Cadastro(),
+        '/forgotPassword': (context) => const ForgotPassword(),
       },
     );
   }
